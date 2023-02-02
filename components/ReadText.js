@@ -18,8 +18,11 @@ export default function ReadText(){
   }, []);
 
   const speak = () => {
-    const thingToSay = ""
-    Speech.speak(thingToSay);
+    data.map((item, index)=>
+     Speech.speak(item.question)
+  
+    
+    )
   }
 
   return (
@@ -33,7 +36,7 @@ export default function ReadText(){
         {data.map((item, index) => (
         <View key={index}>
           <Text style={stylestext.Text}>{item.question}</Text>
-          <Button title='Press to Listen' onPress={Speech.speak(item.question)}></Button>
+          <Button title='Press to Listen' onPress={speak}></Button>
         </View>
         ))}
       </View>
