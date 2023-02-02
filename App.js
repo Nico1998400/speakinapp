@@ -1,22 +1,21 @@
-import {   View,  StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import ReadText from './components/ReadText';
+import AudioRecord from './components/AudioRecord';
 
 export default function App() {
-  return  (
+  return (
 
     <View style={styles1.container}>
-     <ReadText/>
+      <AudioRecord />
+      <ReadText />
     </View>
 
-);
-          };
+  );
+};
 
-
-          const styles1 = StyleSheet.create({
-            container: {
-              flex: 1,
-              backgroundColor: '#ffff',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          });
+const styles1 = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

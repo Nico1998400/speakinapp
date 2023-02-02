@@ -18,7 +18,7 @@ export default function ReadText(){
   }, []);
 
   const speak = () => {
-    const thingToSay = "";
+    const thingToSay = ""
     Speech.speak(thingToSay);
   }
 
@@ -29,18 +29,14 @@ export default function ReadText(){
     <View style={{ flex: 1, padding: 24 }}>
 
     {isLoading ? <Text>Loading...</Text> : 
-
     ( <View>
         {data.map((item, index) => (
         <View key={index}>
           <Text style={stylestext.Text}>{item.question}</Text>
           <Button title='Press to Listen' onPress={Speech.speak(item.question)}></Button>
-
         </View>
         ))}
-
       </View>
-
     )}
 
   </View>
@@ -61,8 +57,5 @@ const stylestext = StyleSheet.create({
               textAlign: 'center',
               marginTop: '30%',
               paddingHorizontal: 15,
-
-
-
             },
           });
