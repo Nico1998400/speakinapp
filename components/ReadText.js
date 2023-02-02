@@ -1,7 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Button, StyleSheet, View, FlatList, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 import * as Speech from 'expo-speech';
+import { AntDesign } from '@expo/vector-icons'; 
 
 export default function ReadText(){
 
@@ -13,7 +14,7 @@ export default function ReadText(){
 // https://mocki.io/v1/380722bc-b8a6-441b-bbf8-d0ad1f343b70 Eng
 // https://mocki.io/v1/34b91116-1dbf-4456-9f7e-b41ae8aeecbf thai
   useEffect(() => {
-    fetch('https://mocki.io/v1/34b91116-1dbf-4456-9f7e-b41ae8aeecbf')
+    fetch('https://mocki.io/v1/380722bc-b8a6-441b-bbf8-d0ad1f343b70')
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -22,8 +23,10 @@ export default function ReadText(){
 
   const speak = () => {
     data.map((item, index)=>
+    
      Speech.speak(item.question, {
       language: item.language
+      
      }
      )
     )
@@ -36,12 +39,17 @@ export default function ReadText(){
 
     {isLoading ? <Text>Loading...</Text> : 
     ( <View>
+      <TouchableWithoutFeedback onPress={speak}>
+              <AntDesign name='sound' style={stylestext.touchablesound}/>
+         </TouchableWithoutFeedback>
         {data.map((item, index) => (
         <View key={index}>
           <Text style={stylestext.Text}>{item.question}</Text>
-          <Button title='Press to Listen' onPress={speak}></Button>
         </View>
+
+
         ))}
+        
       </View>
     )}
 
@@ -54,11 +62,18 @@ const stylestext = StyleSheet.create({
             baseText: {
               fontFamily: 'Cochin',
             },
+            touchablesound:{
+            paddingTop: 75,
+            paddingLeft: 250,
+            fontSize: 24,
+            color:"black",
+      
+            },
+
             Text: {
               fontSize: 30,
               fontWeight: 'bold',
               textAlign: 'center',
-              marginTop: '30%',
               paddingHorizontal: 15,
             },
           });
