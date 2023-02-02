@@ -1,10 +1,11 @@
-import { View, StyleSheet, Button, Text } from 'react-native';
 import * as React from 'react';
+import { View, Button, StyleSheet } from 'react-native';
 import { Audio } from 'expo-av';
 
-export default function AudioRecord() {
+export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
-  const [recordings, setRecordings] = React.useState([]);
+  const [sound, setSound] = React.useState();
+
 
   async function startRecording() {
     try {
@@ -16,7 +17,7 @@ export default function AudioRecord() {
       });
 
       console.log('Starting recording..');
-      const { recording } = await Audio.Recording.createAsync(Audio.RecordingOptionsPresets.HIGH_QUALITY
+      const { recording } = await Audio.Recording.createAsync( Audio.RecordingOptionsPresets.HIGH_QUALITY
       );
       setRecording(recording);
       console.log('Recording started');
@@ -29,75 +30,51 @@ export default function AudioRecord() {
     console.log('Stopping recording..');
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
-
-    let updatedRecordings = [...recordings];
-    const { sound, status } = await recording.createNewLoadedSoundAsync();
-    updatedRecordings.push({
-      sound: sound,
-      duration: getDurationFormatted(status.durationMilis),
-      file: recording.getURI()
-    })
-
-    setRecordings(updatedRecordings);
-
-    function getDurationFormatted(millis) {
-      const minutes = millis / 1000 / 60;
-      const minutesDisplay = Math.floor(minutes);
-      const seconds = Math.round((minutes - minutesDisplay) * 60);
-      const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds;
-      return `${minutesDisplay}:${secondsDisplay}`;
-    }
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+    });
+    const uri = recording.getURI();
+    console.log('Recording stopped and stored at', uri);
+    await sound.playAsync();
   }
 
+  async function playSound() {
+    console.log('Loading Sound');
+    const sound = new Audio.Sound()
+    await Audio.Sound.loadAsync({
+      uri: {uri}
+  })
+    setSound(sound);
+    console.log('Playing Sound');
+    await sound.playAsync();
+  }
+
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
+
   return (
-    <View style={stylestext.Text}>
+    <View style={styles.container}>
       <Button
         title={recording ? 'Stop Recording' : 'Start Recording'}
         onPress={recording ? stopRecording : startRecording}
       />
-      <View >
-        {recordings.map((recordingLine, index) => (
-          <View key={index} style={styles.row}>
-            <Text style={styles.fill}>Recording {index + 1} - {recordingLine.duration}</Text>
-            <Button style={styles.button} onPress={() => recordingLine.sound.replayAsync()} title="Play"></Button>
-          </View>
-        ))}
-      </View>
+       <Button title="Play Sound" onPress={playSound} />
     </View>
   );
-};
-
-const stylestext = StyleSheet.create({
-  baseText: {
-    fontFamily: 'Cochin',
-  },
-  Text: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: '100%',
-    paddingHorizontal: 15,
-  },
-});
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fill: {
-    flex: 1,
-    margin: 16
-  },
-  button: {
-    margin: 16
+  
+  container:{
+  paddingTop: 300,
+  fontSize: 24,
+  color:"black",
   }
 });
-
