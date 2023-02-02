@@ -30,13 +30,13 @@ export default function AudioRecorder() {
   async function stopRecording() {
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
-
+  
     let updatedRecordings = [...recordings];
     const { sound, status } = await recording.createNewLoadedSoundAsync();
     updatedRecordings.push({
-      sound: sound,
+      sound,
       duration: getDurationFormatted(status.durationMillis),
-      file: recording.getURI()
+      file: await recording.getURI()
     });
     console.log(updatedRecordings);
     setRecordings(updatedRecordings);
@@ -51,15 +51,31 @@ export default function AudioRecorder() {
   }
 
   async function playSound() {
+    let file;
+    recordings.map((item, index) => {
+      file = item.file; 
+    });
+  
+    if (!file) {
+      console.error('Uri is not defined');
+      return;
+    }
+  
     console.log('Loading Sound');
-    const sound = new Audio.Sound()
-    await sound.loadAsync({
-      
-    })
-    setSound(sound);
-    console.log(sound)
-    console.log('Playing Sound');
-    await sound.playAsync();
+    const sound = new Audio.Sound();
+    try {
+      await sound.loadAsync({
+        uri: file,
+      });
+      setSound(sound);
+      console.log('Sound Loaded');
+      console.log('Playing Sound');
+      console.log(await sound.playAsync(),"TESEsedfsadfsdfsdfsdfsdfsdfsdfsdfsdf")
+      await sound.setVolumeAsync(1);
+      await sound.playAsync();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   React.useEffect(() => {
