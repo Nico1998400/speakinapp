@@ -7,7 +7,6 @@ export default function AudioRecorder() {
   const [recordings, setRecordings] = React.useState([]);
   const [sound, setSound] = React.useState();
 
-
   async function startRecording() {
     try {
       console.log('Requesting permissions..');
@@ -109,7 +108,6 @@ export default function AudioRecorder() {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     paddingTop: 300,
     fontSize: 24,
