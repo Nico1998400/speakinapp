@@ -15,6 +15,7 @@ export default function AudioRecorder() {
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
+        
       });
 
       console.log('Starting recording..');
@@ -40,6 +41,10 @@ export default function AudioRecorder() {
     });
     console.log(updatedRecordings);
     setRecordings(updatedRecordings);
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      playsInSilentModeIOS: true,
+    });
   }
 
   function getDurationFormatted(millis) {
