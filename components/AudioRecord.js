@@ -83,6 +83,10 @@ export default function AudioRecorder() {
     }
   }
 
+  function resetRecordings() {
+    setRecordings([]);
+  }
+
   React.useEffect(() => {
     return sound
       ? () => {
@@ -99,6 +103,7 @@ export default function AudioRecorder() {
         onPress={recording ? stopRecording : startRecording}
       />
       <Button title="Play Sound" onPress={playSound} />
+      <Button title="Reset Recordings" onPress={resetRecordings} />
     </View>
   );
 }
