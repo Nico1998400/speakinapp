@@ -1,13 +1,11 @@
 import { View, StyleSheet } from 'react-native';
-import ReadText from './components/ReadText';
-import AudioRecord from './components/AudioRecord';
+import SpeakinScreen from './screens/SpeakinScreen';
 
 export default function App() {
   return (
 
     <View style={styles1.container}>
-      <AudioRecord />
-      <ReadText />
+      <SpeakinScreen/>
     </View>
 
   );

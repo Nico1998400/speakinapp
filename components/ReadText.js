@@ -24,7 +24,6 @@ export default function ReadText() {
     data.map((item, index) =>
       Speech.speak(item.question, {
         language: item.language,
-        voice: 'com.apple.ttsbundle.Samantha-compact'
       }
       )
     )
