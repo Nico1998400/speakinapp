@@ -6,8 +6,10 @@ export default function SpeakingScreen() {
   return (
 
     <View>
+       
+         <ReadText/>
         <AudioRecord />
-        <ReadText />
+        
     </View>
 
   );

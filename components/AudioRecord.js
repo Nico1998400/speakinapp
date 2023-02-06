@@ -1,42 +1,47 @@
-import * as React from 'react';
-import { View, Button, StyleSheet} from 'react-native';
-import { Audio } from 'expo-av';
+import * as React from "react";
+import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { Audio } from "expo-av";
+import { FontAwesome, Entypo } from "@expo/vector-icons";
 
 export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]);
   const [sound, setSound] = React.useState();
+  const [recordingFinished, setRecordingFinished] = React.useState(false);
 
   async function startRecording() {
+    setRecording(true);
     try {
-      console.log('Requesting permissions..');
+      console.log("Requesting permissions..");
       await Audio.requestPermissionsAsync();
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
-        
       });
 
-      console.log('Starting recording..');
-      const { recording } = await Audio.Recording.createAsync(Audio.RecordingOptionsPresets.HIGH_QUALITY
+      console.log("Starting recording..");
+      const { recording } = await Audio.Recording.createAsync(
+        Audio.RecordingOptionsPresets.HIGH_QUALITY
       );
       setRecording(recording);
-      console.log('Recording started');
+      console.log("Recording started");
     } catch (err) {
-      console.error('Failed to start recording', err);
+      console.error("Failed to start recording", err);
     }
   }
 
   async function stopRecording() {
+    setRecording(false);
+    setRecordingFinished(true);
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
-  
+
     let updatedRecordings = [...recordings];
     const { sound, status } = await recording.createNewLoadedSoundAsync();
     updatedRecordings.push({
       sound,
       duration: getDurationFormatted(status.durationMillis),
-      file: await recording.getURI()
+      file: await recording.getURI(),
     });
     console.log(updatedRecordings);
     setRecordings(updatedRecordings);
@@ -57,24 +62,27 @@ export default function AudioRecorder() {
   async function playSound() {
     let file;
     recordings.map((item, index) => {
-      file = item.file; 
+      file = item.file;
     });
-  
+
     if (!file) {
-      console.error('Uri is not defined');
+      console.error("Uri is not defined");
       return;
     }
-  
-    console.log('Loading Sound');
+
+    console.log("Loading Sound");
     const sound = new Audio.Sound();
     try {
       await sound.loadAsync({
         uri: file,
       });
       setSound(sound);
-      console.log('Sound Loaded');
-      console.log('Playing Sound');
-      console.log(await sound.playAsync(),"TESEsedfsadfsdfsdfsdfsdfsdfsdfsdfsdf")
+      console.log("Sound Loaded");
+      console.log("Playing Sound");
+      console.log(
+        await sound.playAsync(),
+        "TESEsedfsadfsdfsdfsdfsdfsdfsdfsdfsdf"
+      );
       await sound.setVolumeAsync(1);
       await sound.playAsync();
     } catch (error) {
@@ -89,28 +97,84 @@ export default function AudioRecorder() {
   React.useEffect(() => {
     return sound
       ? () => {
-        console.log('Unloading Sound');
-        sound.unloadAsync();
-      }
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
       : undefined;
   }, [sound]);
 
   return (
     <View style={styles.container}>
-      <Button
-        title={recording ? 'Stop Recording' : 'Start Recording'}
-        onPress={recording ? stopRecording : startRecording}
-      />
-      <Button title="Play Sound" onPress={playSound} />
-      <Button title="Reset Recordings" onPress={resetRecordings} />
+      {recording ? (
+        <TouchableOpacity
+          style={[
+            styles.button,
+            { backgroundColor: recording ? "#5DA2DF" : "#5DA2DF" },
+          ]}
+          onPress={stopRecording}
+        >
+          <FontAwesome name="microphone" size={70} color="white" />
+        </TouchableOpacity>
+      ) : recordingFinished ? (
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#3AD478" }]}
+          onPress={playSound}
+        >
+          <Entypo name="check" size={70} color="white" />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={[
+            styles.button,
+            styles.shadowouter,
+            { backgroundColor: "#5DA2DF" },
+          ]}
+          onPress={startRecording}
+        >
+          <FontAwesome name="microphone" size={70} color="brown" />
+        </TouchableOpacity>
+      )}
+      <Text style={styles.text}>
+        {recording
+          ? "Avsluta"
+          : recordingFinished
+          ? "Skicka in"
+          : "Starta inspelning"}
+      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 300,
-    fontSize: 24,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 50,
+  },
+  button: {
+    width: 250,
+    height: 250,
+    borderRadius: 130,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  text: {
     color: "black",
-  }
+    fontWeight: "bold",
+    fontSize: 24,
+    textAlign: "center",
+    marginTop: 40,
+  },
+  shadowouter: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+
+    elevation: 24,
+  },
 });
