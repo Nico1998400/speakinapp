@@ -53,18 +53,17 @@ const stylestext = StyleSheet.create({
   questioncontainer: {
     backgroundColor: '#ffffff',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 50,
+    paddingLeft: 25,
+    paddingRight: 25,
+    paddingBottom: 40,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 15,
-    paddingTop:40,
-    paddingLeft:100,
-    paddingRight:100,
-    paddingBottom:40,
-   
   },
   questionText: {
     fontSize: 30,
