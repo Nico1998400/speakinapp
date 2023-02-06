@@ -103,6 +103,25 @@ export default function AudioRecorder() {
       : undefined;
   }, [sound]);
 
+
+
+  const [duration, setDuration] = React.useState(0);
+  let interval;
+
+  React.useEffect(() => {
+    if (recording) {
+      interval = setInterval(() => {
+        setDuration((prevDuration) => prevDuration + 1000);
+      }, 1000);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [recording]);
+
+  const durationDisplay = getDurationFormatted(duration);
+
+
   return (
     <View style={styles.container}>
       {recording ? (
@@ -142,6 +161,7 @@ export default function AudioRecorder() {
           : "Starta inspelning"}
       </Text>
       <View style={{marginTop:50 ,height: 1, width: "250%",backgroundColor: "black",}}><Text></Text></View>
+      {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
     </View>
   );
 }
@@ -174,4 +194,9 @@ const styles = StyleSheet.create({
 
     elevation: 36,
   },
+  timer:{
+    marginTop: 50,
+    fontSize: 36,
+    fontWeight: 'bold',
+  }
 });
