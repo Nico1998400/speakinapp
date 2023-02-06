@@ -141,6 +141,7 @@ export default function AudioRecorder() {
           ? "Skicka in"
           : "Starta inspelning"}
       </Text>
+      <View style={{marginTop:50 ,height: 1, width: "250%",backgroundColor: "black",}}><Text></Text></View>
     </View>
   );
 }
@@ -162,19 +163,15 @@ const styles = StyleSheet.create({
   text: {
     color: "black",
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 32,
     textAlign: "center",
     marginTop: 40,
   },
   shadowouter: {
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
 
-    elevation: 24,
+    elevation: 36,
   },
 });
