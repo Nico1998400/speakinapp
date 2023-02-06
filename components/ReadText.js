@@ -55,9 +55,9 @@ const stylestext = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 50,
-    paddingLeft: 25,
-    paddingRight: 25,
+    paddingLeft: '15%',
+    paddingRight: '15%',
+    paddingTop: '18%',
     paddingBottom: 40,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -66,7 +66,7 @@ const stylestext = StyleSheet.create({
     elevation: 15,
   },
   questionText: {
-    fontSize: 30,
+    fontSize: 36,
   },
   speakerIcon: {
     fontSize: 30,
