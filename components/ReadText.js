@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import * as Speech from 'expo-speech';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -21,53 +21,40 @@ export default function ReadText() {
   }, []);
 
   const speak = () => {
-    data.map((item, index) =>
-      Speech.speak(item.question, {
-        language: item.language,
-      }
-      )
-    )
   }
 
   return (
-    <View>
-
-      <View style={{ flex: 1, padding: 24 }}>
-
-        {isLoading ? <Text>Loading...</Text> :
-          (<View>
-            <TouchableWithoutFeedback onPress={speak}>
-              <AntDesign name='sound' style={stylestext.touchablesound} />
-            </TouchableWithoutFeedback>
-            {data.map((item, index) => (
-              <View key={index}>
-                <Text style={stylestext.Text}>{item.question}</Text>
-              </View>
-            ))}
-          </View>
-          )}
-
-      </View>
+    <View style={stylestext.questioncontainer}>
+      <Text style={stylestext.questionText}>Hur nöjd är du med dagens gynekolog undersökning?</Text>
+      <TouchableWithoutFeedback onPress={speak}>
+        <AntDesign name='sound' style={stylestext.speakerIcon} />
+      </TouchableWithoutFeedback>
     </View>
   );
 };
 
 const stylestext = StyleSheet.create({
-  baseText: {
-    fontFamily: 'Cochin',
+  questioncontainer: {
+    padding: 26,
+    backgroundColor: '#ffffff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 15,
+    marginTop:50,
+   
   },
-  touchablesound: {
-    paddingTop: 75,
-    paddingLeft: 250,
-    fontSize: 24,
-    color: "black",
-
+  questionText: {
+    fontSize: 30,
+    paddingHorizontal: 15,
   },
-
-  Text: {
+  speakerIcon: {
     fontSize: 30,
     fontWeight: 'bold',
-    textAlign: 'center',
     paddingHorizontal: 15,
   },
 });
