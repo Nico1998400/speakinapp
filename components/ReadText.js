@@ -21,21 +21,36 @@ export default function ReadText() {
   }, []);
 
   const speak = () => {
+    data.map((item, index) =>
+      Speech.speak(item.question, {
+        language: item.language,
+      }
+      )
+    )
   }
 
   return (
+    <View>
+    {isLoading ? <Text>Loading...</Text> : (
     <View style={stylestext.questioncontainer}>
-      <Text style={stylestext.questionText}>Hur nöjd är du med dagens gynekolog undersökning?</Text>
+
+      {data.map((item, index) => (
+              <View key={index}>
+                <Text style={stylestext.questionText}>{item.question}</Text>
+              </View>
+            ))}
       <TouchableWithoutFeedback onPress={speak}>
         <AntDesign name='sound' style={stylestext.speakerIcon} />
       </TouchableWithoutFeedback>
     </View>
+       )}
+
+       </View>
   );
 };
 
 const stylestext = StyleSheet.create({
   questioncontainer: {
-    padding: 26,
     backgroundColor: '#ffffff',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -45,7 +60,10 @@ const stylestext = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 15,
-    marginTop:50,
+    paddingTop:40,
+    paddingLeft:50,
+    paddingRight:50,
+    paddingBottom:40,
    
   },
   questionText: {
