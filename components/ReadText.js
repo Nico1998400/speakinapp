@@ -61,18 +61,17 @@ const stylestext = StyleSheet.create({
     shadowRadius: 5,
     elevation: 15,
     paddingTop:40,
-    paddingLeft:50,
-    paddingRight:50,
+    paddingLeft:100,
+    paddingRight:100,
     paddingBottom:40,
    
   },
   questionText: {
     fontSize: 30,
-    paddingHorizontal: 15,
   },
   speakerIcon: {
     fontSize: 30,
     fontWeight: 'bold',
-    paddingHorizontal: 15,
+    marginLeft: 30,
   },
 });
