@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import * as Speech from 'expo-speech';
 import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons'
+
 
 export default function ReadText() {
   const [isLoading, setLoading] = useState(true);
@@ -40,7 +42,8 @@ export default function ReadText() {
               </View>
             ))}
       <TouchableWithoutFeedback onPress={speak}>
-        <AntDesign name='sound' style={stylestext.speakerIcon} />
+      <MaterialIcons name="volume-up" style={stylestext.speakerIcon} />
+
       </TouchableWithoutFeedback>
     </View>
        )}
@@ -51,7 +54,6 @@ export default function ReadText() {
 
 const stylestext = StyleSheet.create({
   questioncontainer: {
-    backgroundColor: '#ffffff',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -69,8 +71,15 @@ const stylestext = StyleSheet.create({
     fontSize: 36,
   },
   speakerIcon: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: 'bold',
     marginLeft: 30,
+    borderRadius: 30,  // add this line to make the icon round
+    padding: 5,
+    borderWidth: 0.5,
+    borderColor: 'black',
+    boxShadow: [
+      0, 0, 10, 8, 'rgba(0, 0, 0, 0.2)'
+    ],
   },
 });
