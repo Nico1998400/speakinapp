@@ -33,21 +33,21 @@ export default function ReadText() {
 
   return (
     <View>
-    {isLoading ? <Text>Loading...</Text> : (
-    <View style={stylestext.questioncontainer}>
+      {isLoading ? <Text>Loading...</Text> : (
+        <View style={stylestext.questioncontainer}>
 
-      {data.map((item, index) => (
-              <View key={index}>
-                <Text style={stylestext.questionText}>{item.question}</Text>
-              </View>
-            ))}
-      <TouchableWithoutFeedback onPress={speak}>
-      <MaterialIcons name="volume-up" style={stylestext.speakerIcon} />
-      </TouchableWithoutFeedback>
+          {data.map((item, index) => (
+            <View key={index}>
+              <Text style={stylestext.questionText}>{item.question}</Text>
+            </View>
+          ))}
+          <TouchableWithoutFeedback onPress={speak}>
+            <MaterialIcons name="volume-up" style={stylestext.speakerIcon} />
+          </TouchableWithoutFeedback>
+        </View>
+      )}
+      <View style={stylestext.borderlineshadow}><Text></Text></View>
     </View>
-       )}
-
-       </View>
   );
 };
 
@@ -59,12 +59,6 @@ const stylestext = StyleSheet.create({
     paddingLeft: '15%',
     paddingRight: '15%',
     paddingTop: '18%',
-    paddingBottom: 40,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 15,
   },
   questionText: {
     fontSize: 36,
@@ -77,8 +71,11 @@ const stylestext = StyleSheet.create({
     padding: 5,
     borderWidth: 1,
     borderColor: 'black',
-    boxShadow: [
-      0, 0, 10, 8, 'rgba(0, 0, 0, 0.2)'
-    ],
   },
+  borderlineshadow: {
+    marginTop: '10%',
+    height: 1,
+    width: "250%",
+    backgroundColor: "black",
+  }
 });
