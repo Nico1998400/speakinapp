@@ -158,12 +158,16 @@ export default function AudioRecorder() {
             ? "Skicka in"
             : "Starta inspelning"}
       </Text>
-      <View style={{ marginTop: '10%', height: 1, width: "250%", backgroundColor: "black", }}><Text></Text></View>
+      <View style={{ marginTop: '5%', height: 1, width: "250%", backgroundColor: "black", }}><Text></Text></View>
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
-      <TouchableOpacity style={styles.buttonrestart} onPress={playSound}>
-        <MaterialCommunityIcons name="restart" size={42} color="black" />
+      
+      {recordingFinished ? <View ><TouchableOpacity style={styles.buttonrestart} onPress={playSound}>
+         <MaterialCommunityIcons name="restart" size={42} color="black" />
       </TouchableOpacity>
       <Text style={styles.restartbuttontext}>Gör om</Text>
+      </View>
+      : null}
+      
     </View>
   );
 }
@@ -172,7 +176,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: '10%',
+    paddingTop: '5%',
   },
   button: {
     width: 300,
@@ -195,15 +199,15 @@ const styles = StyleSheet.create({
     elevation: 36,
   },
   timer: {
-    marginTop: '10%',
+    marginTop: '5%',
     fontSize: 36,
     fontWeight: 'bold',
 
   },
   buttonrestart: {
     backgroundColor: '#FFD21D',
-    borderRadius: 30,
-    padding: 10,
+    borderRadius: 40,
+    padding: 15,
     alignItems: 'center',
     marginTop: '5%',
     marginBottom: '5%',
@@ -212,6 +216,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   restartbuttontext: {
-    fontSize: 32,
+    fontSize: 20,
   }
 });
