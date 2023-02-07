@@ -74,9 +74,9 @@ const stylestext = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     marginLeft: 30,
-    borderRadius: 30,  // add this line to make the icon round
+    borderRadius: 25,  // add this line to make the icon round
     padding: 5,
-    borderWidth: 0.5,
+    borderWidth: 1,
     borderColor: 'black',
     boxShadow: [
       0, 0, 10, 8, 'rgba(0, 0, 0, 0.2)'
