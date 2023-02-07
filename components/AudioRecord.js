@@ -3,6 +3,7 @@ import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Audio } from "expo-av";
 import { FontAwesome, Entypo } from "@expo/vector-icons";
 
+
 export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]);
@@ -103,8 +104,6 @@ export default function AudioRecorder() {
       : undefined;
   }, [sound]);
 
-
-
   const [duration, setDuration] = React.useState(0);
   let interval;
 
@@ -132,14 +131,14 @@ export default function AudioRecorder() {
           ]}
           onPress={stopRecording}
         >
-          <FontAwesome name="microphone" size={70} color="white" />
+          <FontAwesome name="microphone" size={108} color="white" />
         </TouchableOpacity>
       ) : recordingFinished ? (
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3AD478" }]}
           onPress={playSound}
         >
-          <Entypo name="check" size={70} color="white" />
+          <Entypo name="check" size={108} color="white" />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
@@ -150,7 +149,7 @@ export default function AudioRecorder() {
           ]}
           onPress={startRecording}
         >
-          <FontAwesome name="microphone" size={70} color="brown" />
+          <FontAwesome name="microphone" size={108} color="brown" />
         </TouchableOpacity>
       )}
       <Text style={styles.text}>
@@ -160,7 +159,7 @@ export default function AudioRecorder() {
           ? "Skicka in"
           : "Starta inspelning"}
       </Text>
-      <View style={{marginTop:50 ,height: 1, width: "250%",backgroundColor: "black",}}><Text></Text></View>
+      <View style={{marginTop:'10%' ,height: 1, width: "250%",backgroundColor: "black",}}><Text></Text></View>
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
     </View>
   );
@@ -170,15 +169,15 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 50,
+    paddingTop: '10%',
   },
   button: {
-    width: 250,
-    height: 250,
-    borderRadius: 130,
+    width: 300,
+    height: 300,
+    borderRadius: 150,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
+    
   },
   text: {
     color: "black",
@@ -195,7 +194,7 @@ const styles = StyleSheet.create({
     elevation: 36,
   },
   timer:{
-    marginTop: 50,
+    marginTop: '10%',
     fontSize: 36,
     fontWeight: 'bold',
   }
