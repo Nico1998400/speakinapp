@@ -33,6 +33,7 @@ export default function ReadText() {
 
   return (
     <View>
+      <Shadow>
       {isLoading ? <Text>Loading...</Text> : (
         <View style={stylestext.questioncontainer}>
           {data.map((item, index) => (
@@ -47,22 +48,20 @@ export default function ReadText() {
           </Shadow>
         </View>
       )}
+      </Shadow>
     </View>
   );
 };
 
 const stylestext = StyleSheet.create({
-
   questioncontainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: '15%',
-    paddingRight: '15%',
-    paddingTop: '18%',
-    paddingBottom: '10%',
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    marginLeft: '15%',
+    marginRight: '15%',
+    marginTop: '18%',
+    marginBottom: '10%',
   },
   questionText: {
     fontSize: 36,

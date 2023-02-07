@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: '5%',
+    marginTop: '10%',
   },
   button: {
     width: 300,
