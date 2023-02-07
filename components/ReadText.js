@@ -43,7 +43,6 @@ export default function ReadText() {
             ))}
       <TouchableWithoutFeedback onPress={speak}>
       <MaterialIcons name="volume-up" style={stylestext.speakerIcon} />
-
       </TouchableWithoutFeedback>
     </View>
        )}

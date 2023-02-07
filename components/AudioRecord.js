@@ -1,8 +1,7 @@
 import * as React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Audio } from "expo-av";
-import { FontAwesome, Entypo } from "@expo/vector-icons";
-
+import { FontAwesome, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
@@ -98,9 +97,9 @@ export default function AudioRecorder() {
   React.useEffect(() => {
     return sound
       ? () => {
-          console.log("Unloading Sound");
-          sound.unloadAsync();
-        }
+        console.log("Unloading Sound");
+        sound.unloadAsync();
+      }
       : undefined;
   }, [sound]);
 
@@ -156,11 +155,15 @@ export default function AudioRecorder() {
         {recording
           ? "Avsluta"
           : recordingFinished
-          ? "Skicka in"
-          : "Starta inspelning"}
+            ? "Skicka in"
+            : "Starta inspelning"}
       </Text>
-      <View style={{marginTop:'10%' ,height: 1, width: "250%",backgroundColor: "black",}}><Text></Text></View>
+      <View style={{ marginTop: '10%', height: 1, width: "250%", backgroundColor: "black", }}><Text></Text></View>
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
+      <TouchableOpacity style={styles.buttonrestart} onPress={playSound}>
+        <MaterialCommunityIcons name="restart" size={42} color="black" />
+      </TouchableOpacity>
+      <Text style={styles.restartbuttontext}>Gör om</Text>
     </View>
   );
 }
@@ -177,7 +180,6 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     justifyContent: "center",
     alignItems: "center",
-    
   },
   text: {
     color: "black",
@@ -190,12 +192,26 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOpacity: 0.3,
     shadowRadius: 20,
-
     elevation: 36,
   },
-  timer:{
+  timer: {
     marginTop: '10%',
     fontSize: 36,
     fontWeight: 'bold',
+
+  },
+  buttonrestart: {
+    backgroundColor: '#FFD21D',
+    borderRadius: 30,
+    padding: 10,
+    alignItems: 'center',
+    marginTop: '5%',
+    marginBottom: '5%',
+  },
+  buttonText: {
+    fontWeight: 'bold',
+  },
+  restartbuttontext: {
+    fontSize: 32,
   }
 });
