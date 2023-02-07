@@ -1,9 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 import * as Speech from 'expo-speech';
-import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'
+import { Shadow } from 'react-native-shadow-2';
 
 
 export default function ReadText() {
@@ -35,23 +35,24 @@ export default function ReadText() {
     <View>
       {isLoading ? <Text>Loading...</Text> : (
         <View style={stylestext.questioncontainer}>
-
           {data.map((item, index) => (
             <View key={index}>
               <Text style={stylestext.questionText}>{item.question}</Text>
             </View>
           ))}
-          <TouchableWithoutFeedback onPress={speak}>
-            <MaterialIcons name="volume-up" style={stylestext.speakerIcon} />
-          </TouchableWithoutFeedback>
+          <Shadow>
+            <TouchableWithoutFeedback style={stylestext.speakericonouter} onPress={speak}>
+              <MaterialIcons name="volume-up" style={stylestext.speakericon} size={38} />
+            </TouchableWithoutFeedback>
+          </Shadow>
         </View>
       )}
-      <View style={stylestext.borderlineshadow}><Text></Text></View>
     </View>
   );
 };
 
 const stylestext = StyleSheet.create({
+
   questioncontainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -59,23 +60,16 @@ const stylestext = StyleSheet.create({
     paddingLeft: '15%',
     paddingRight: '15%',
     paddingTop: '18%',
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
   },
   questionText: {
     fontSize: 36,
   },
-  speakerIcon: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    marginLeft: 30,
-    borderRadius: 25,  // add this line to make the icon round
-    padding: 5,
-    borderWidth: 1,
-    borderColor: 'black',
+  speakericonouter: {
+    borderRadius: 30,
   },
-  borderlineshadow: {
-    marginTop: '10%',
-    height: 1,
-    width: "250%",
-    backgroundColor: "black",
-  }
+  speakericon: {
+    padding: 10,
+  },
 });
