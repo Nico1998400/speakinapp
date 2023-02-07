@@ -60,11 +60,13 @@ const stylestext = StyleSheet.create({
     paddingLeft: '15%',
     paddingRight: '15%',
     paddingTop: '18%',
+    paddingBottom: '10%',
     borderBottomWidth: 1,
     borderBottomColor: 'black',
   },
   questionText: {
     fontSize: 36,
+    marginRight: 20,
   },
   speakericonouter: {
     borderRadius: 30,
