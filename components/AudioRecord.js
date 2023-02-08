@@ -51,7 +51,7 @@ export default function AudioRecorder() {
     setRecordings(updatedRecordings);
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
-      playsInSilentModeIOS: true,
+      playsInSilentModeIOS: false,
     });
   }
 
@@ -94,7 +94,7 @@ export default function AudioRecorder() {
     }
   }
 
-  function resetRecordings() {
+  async function resetRecordings() {
     setRecordings([]);
     setDuration(0);
     setRecordingFinished(false);
