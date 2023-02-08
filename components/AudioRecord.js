@@ -1,7 +1,11 @@
 import * as React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Audio } from "expo-av";
-import { FontAwesome, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Entypo,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
@@ -92,14 +96,15 @@ export default function AudioRecorder() {
 
   function resetRecordings() {
     setRecordings([]);
+    setRecordingFinished(false);
   }
 
   React.useEffect(() => {
     return sound
       ? () => {
-        console.log("Unloading Sound");
-        sound.unloadAsync();
-      }
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
       : undefined;
   }, [sound]);
 
@@ -118,7 +123,6 @@ export default function AudioRecorder() {
   }, [recording]);
 
   const durationDisplay = getDurationFormatted(duration);
-
 
   return (
     <View style={styles.container}>
@@ -155,19 +159,29 @@ export default function AudioRecorder() {
         {recording
           ? "Avsluta"
           : recordingFinished
-            ? "Skicka in"
-            : "Starta inspelning"}
+          ? "Skicka in"
+          : "Starta inspelning"}
       </Text>
-      <View style={{ marginTop: '5%', height: 1, width: "250%", backgroundColor: "black", }}><Text></Text></View>
-      {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
-      
-      {recordingFinished ? <View ><TouchableOpacity style={styles.buttonrestart} onPress={playSound}>
-         <MaterialCommunityIcons name="restart" size={42} color="black" />
-      </TouchableOpacity>
-      <Text style={styles.restartbuttontext}>Gör om</Text>
+      <View
+        style={{
+          marginTop: "5%",
+          height: 1,
+          width: "250%",
+          backgroundColor: "black",
+        }}
+      >
+        <Text></Text>
       </View>
-      : null}
-      
+      {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
+
+      {recordingFinished ? (
+        <View>
+          <TouchableOpacity style={styles.buttonrestart} onPress={resetRecordings}>
+            <MaterialCommunityIcons name="restart" size={42} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.restartbuttontext}>Gör om</Text>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -176,7 +190,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: '10%',
+    marginTop: "10%",
   },
   button: {
     width: 300,
@@ -199,23 +213,22 @@ const styles = StyleSheet.create({
     elevation: 36,
   },
   timer: {
-    marginTop: '5%',
+    marginTop: "5%",
     fontSize: 36,
-    fontWeight: 'bold',
-
+    fontWeight: "bold",
   },
   buttonrestart: {
-    backgroundColor: '#FFD21D',
+    backgroundColor: "#FFD21D",
     borderRadius: 40,
     padding: 15,
-    alignItems: 'center',
-    marginTop: '5%',
-    marginBottom: '5%',
+    alignItems: "center",
+    marginTop: "5%",
+    marginBottom: "5%",
   },
   buttonText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   restartbuttontext: {
     fontSize: 20,
-  }
+  },
 });
