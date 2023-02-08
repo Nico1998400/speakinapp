@@ -6,7 +6,7 @@ import {
   Entypo,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { Sound } from "expo-av/build/Audio";
+import { Shadow } from 'react-native-shadow-2';
 
 export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
@@ -144,16 +144,17 @@ export default function AudioRecorder() {
           <Entypo name="check" size={108} color="white" />
         </TouchableOpacity>
       ) : (
+        <Shadow distance={5} offset={[0, 5]} startColor={'#00000010'} endColor={'#0000'}>
         <TouchableOpacity
           style={[
             styles.button,
-            styles.shadowouter,
             { backgroundColor: "#5DA2DF" },
           ]}
           onPress={startRecording}
         >
           <FontAwesome name="microphone" size={108} color="brown" />
         </TouchableOpacity>
+        </Shadow>
       )}
       <Text style={styles.text}>
         {recording

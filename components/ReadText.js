@@ -12,10 +12,12 @@ export default function ReadText() {
 
   // https://mocki.io/v1/3158625d-eeb4-45f9-ab43-9e5751b99006 Spanish
   // https://mocki.io/v1/698e9048-826e-43b1-b00a-2ccf4aa03baf Sve
-  // https://mocki.io/v1/380722bc-b8a6-441b-bbf8-d0ad1f343b70 Eng
+  // https://mocki.io/v1/380722bc-b8a6-441b-bbf8-d0ad1f343b70 Eng Indian
   // https://mocki.io/v1/34b91116-1dbf-4456-9f7e-b41ae8aeecbf thai
+  // https://mocki.io/v1/c8e7ee9e-afad-4fda-b18f-0e93b07460fb Eng
+
   useEffect(() => {
-    fetch('https://mocki.io/v1/380722bc-b8a6-441b-bbf8-d0ad1f343b70')
+    fetch('https://mocki.io/v1/c8e7ee9e-afad-4fda-b18f-0e93b07460fb')
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -60,7 +62,7 @@ const stylestext = StyleSheet.create({
     alignItems: 'center',
     marginLeft: '15%',
     marginRight: '15%',
-    marginTop: '18%',
+    marginTop: '15%',
     marginBottom: '10%',
   },
   questionText: {
