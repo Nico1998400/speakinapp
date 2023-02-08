@@ -96,6 +96,7 @@ export default function AudioRecorder() {
 
   function resetRecordings() {
     setRecordings([]);
+    setDuration(0);
     setRecordingFinished(false);
   }
 
