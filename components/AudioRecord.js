@@ -6,6 +6,7 @@ import {
   Entypo,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { Sound } from "expo-av/build/Audio";
 
 export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
@@ -35,11 +36,13 @@ export default function AudioRecorder() {
   }
 
   async function stopRecording() {
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      playsInSilentModeIOS: false,
+    });
     setRecording(false);
     setRecordingFinished(true);
-    setRecording(undefined);
     await recording.stopAndUnloadAsync();
-
     let updatedRecordings = [...recordings];
     const { sound, status } = await recording.createNewLoadedSoundAsync();
     updatedRecordings.push({
@@ -49,10 +52,6 @@ export default function AudioRecorder() {
     });
     console.log(updatedRecordings);
     setRecordings(updatedRecordings);
-    await Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-      playsInSilentModeIOS: false,
-    });
   }
 
   function getDurationFormatted(millis) {
