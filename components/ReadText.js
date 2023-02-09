@@ -60,14 +60,15 @@ const stylestext = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: '15%',
-    marginRight: '15%',
+    marginLeft: '20%',
+    marginRight: '20%',
     marginTop: '15%',
     marginBottom: '10%',
   },
   questionText: {
     fontSize: 36,
     marginRight: 20,
+    fontFamily: 'TTCommons-Regular',
   },
   speakericonouter: {
     borderRadius: 30,

@@ -102,9 +102,9 @@ export default function AudioRecorder() {
   React.useEffect(() => {
     return sound
       ? () => {
-          console.log("Unloading Sound");
-          sound.unloadAsync();
-        }
+        console.log("Unloading Sound");
+        sound.unloadAsync();
+      }
       : undefined;
   }, [sound]);
 
@@ -145,23 +145,23 @@ export default function AudioRecorder() {
         </TouchableOpacity>
       ) : (
         <Shadow distance={5} offset={[0, 5]} startColor={'#00000010'} endColor={'#0000'}>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            { backgroundColor: "#5DA2DF" },
-          ]}
-          onPress={startRecording}
-        >
-          <FontAwesome name="microphone" size={108} color="brown" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              { backgroundColor: "#5DA2DF" },
+            ]}
+            onPress={startRecording}
+          >
+            <FontAwesome name="microphone" size={108} color="brown" />
+          </TouchableOpacity>
         </Shadow>
       )}
       <Text style={styles.text}>
         {recording
           ? "Avsluta"
           : recordingFinished
-          ? "Skicka in"
-          : "Starta inspelning"}
+            ? "Skicka in"
+            : "Starta inspelning"}
       </Text>
       <View
         style={{
@@ -176,13 +176,16 @@ export default function AudioRecorder() {
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
 
       {recordingFinished ? (
-        <View>
-          <TouchableOpacity style={styles.buttonrestart} onPress={resetRecordings}>
-            <MaterialCommunityIcons name="restart" size={42} color="black" />
-          </TouchableOpacity>
+        <>
+          <View>
+            <TouchableOpacity style={styles.buttonrestart} onPress={resetRecordings}>
+              <MaterialCommunityIcons name="restart" size={52} color="black" />
+            </TouchableOpacity>
+          </View>
           <Text style={styles.restartbuttontext}>Gör om</Text>
-        </View>
+        </>
       ) : null}
+
     </View>
   );
 }
@@ -201,8 +204,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    color: "black",
-    fontWeight: "bold",
+    fontFamily: 'TTCommons-Bold',
     fontSize: 32,
     textAlign: "center",
     marginTop: 40,
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
   },
   buttonrestart: {
     backgroundColor: "#FFD21D",
-    borderRadius: 40,
+    borderRadius: '50%',
     padding: 15,
     alignItems: "center",
     marginTop: "5%",
@@ -230,6 +232,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   restartbuttontext: {
-    fontSize: 20,
+    fontSize: 30,
+    fontFamily: 'TTCommons-Regular'
   },
 });
