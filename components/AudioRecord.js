@@ -7,6 +7,9 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { Shadow } from 'react-native-shadow-2';
+import Lottie from 'lottie-react-native';
+import LottieView from "lottie-react-native";
+
 
 export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
@@ -127,7 +130,9 @@ export default function AudioRecorder() {
   return (
     <View style={styles.container}>
       {recording ? (
+         
         <TouchableOpacity
+        
           style={[
             styles.button,
             { backgroundColor: recording ? "#5DA2DF" : "#5DA2DF" },
@@ -135,14 +140,18 @@ export default function AudioRecorder() {
           onPress={stopRecording}
         >
           <FontAwesome name="microphone" size={108} color="white" />
+          
         </TouchableOpacity>
+       
       ) : recordingFinished ? (
+        
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3AD478" }]}
           onPress={playSound}
         >
           <Entypo name="check" size={108} color="white" />
         </TouchableOpacity>
+        
       ) : (
         <Shadow distance={5} offset={[0, 5]} startColor={'#00000010'} endColor={'#0000'}>
           <TouchableOpacity
@@ -152,7 +161,7 @@ export default function AudioRecorder() {
             ]}
             onPress={startRecording}
           >
-            <FontAwesome name="microphone" size={108} color="brown" />
+            <FontAwesome name="microphone" size={108} color="white" />
           </TouchableOpacity>
         </Shadow>
       )}
@@ -163,18 +172,26 @@ export default function AudioRecorder() {
             ? "Skicka in"
             : "Starta inspelning"}
       </Text>
-      <View
-        style={{
-          marginTop: "5%",
-          height: 1,
-          width: "250%",
-          backgroundColor: "black",
-        }}
-      >
-        <Text></Text>
-      </View>
-      {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
+      
+      {!recording ? (
+  <View
+    style={{
+      marginTop: "10%",
+      height: 1,
+      width: "250%",
+      backgroundColor: "black",
+    }}
+  >
+  </View>
+) : null}
 
+      {recording ? 
+      <Lottie source={require('../assets/lottie/wavyline.json')} autoPlay loop style={{...styles.animation, width: 100, height: 120}}/>
+    : null }
+    
+      
+      {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
+    
       {recordingFinished ? (
         <>
           <View>
@@ -187,6 +204,7 @@ export default function AudioRecorder() {
       ) : null}
 
     </View>
+    
   );
 }
 
@@ -196,18 +214,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: "10%",
   },
+  animation: {
+    zIndex: 1,
+    alignItems: 'center'
+  },
   button: {
     width: 300,
     height: 300,
     borderRadius: 150,
     justifyContent: "center",
     alignItems: "center",
+   
   },
   text: {
     fontFamily: 'TTCommons-Bold',
     fontSize: 32,
     textAlign: "center",
-    marginTop: 40,
+    marginTop: 50,
   },
   shadowouter: {
     shadowColor: "#000",
@@ -222,10 +245,10 @@ const styles = StyleSheet.create({
   },
   buttonrestart: {
     backgroundColor: "#FFD21D",
-    borderRadius: '50%',
+    borderRadius: 50,
     padding: 15,
     alignItems: "center",
-    marginTop: "5%",
+    marginTop: "10%",
     marginBottom: "5%",
   },
   buttonText: {
