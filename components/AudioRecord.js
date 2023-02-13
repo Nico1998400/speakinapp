@@ -8,7 +8,10 @@ import {
 } from "@expo/vector-icons";
 import { Shadow } from 'react-native-shadow-2';
 import Lottie from 'lottie-react-native';
-import LottieView from "lottie-react-native";
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
 
 
 export default function AudioRecorder() {
@@ -173,23 +176,6 @@ export default function AudioRecorder() {
             : "Starta inspelning"}
       </Text>
       
-      {!recording ? (
-  <View
-    style={{
-      marginTop: "10%",
-      height: 1,
-      width: "250%",
-      backgroundColor: "black",
-    }}
-  >
-  </View>
-) : null}
-
-      {recording ? 
-      <Lottie source={require('../assets/lottie/wavyline.json')} autoPlay loop style={{...styles.animation, width: 100, height: 120}}/>
-    : null }
-    
-      
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
     
       {recordingFinished ? (
@@ -210,33 +196,28 @@ export default function AudioRecorder() {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
     alignItems: "center",
-    marginTop: "10%",
+    width: width,
+    height: height * 0.75,
+    paddingTop: '10%',
   },
   animation: {
     zIndex: 1,
     alignItems: 'center'
   },
   button: {
-    width: 300,
-    height: 300,
-    borderRadius: 150,
+    width: width * 0.7,
+    height: width * 0.7,
+    borderRadius: width * 0.35,
     justifyContent: "center",
     alignItems: "center",
    
   },
   text: {
     fontFamily: 'TTCommons-Bold',
-    fontSize: 32,
     textAlign: "center",
-    marginTop: 50,
-  },
-  shadowouter: {
-    shadowColor: "#000",
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
-    elevation: 36,
+    fontSize: width * 0.1,
+    paddingTop: '10%',
   },
   timer: {
     marginTop: "5%",

@@ -1,18 +1,27 @@
-import { View} from 'react-native';
+import { View, StyleSheet} from 'react-native';
 import ReadText from '../components/ReadText';
 import AudioRecord from '../components/AudioRecord';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
 
 export default function SpeakingScreen() {
   return (
 
-    <View>
+    <View style={styles.speakincontainer}>
          <ReadText/>
-        <AudioRecord /> 
+         <AudioRecord/>
     </View>
 
   );
 };
 
+const styles = StyleSheet.create({
+  speakincontainer: {
+    
+  },
+})
 
 
 

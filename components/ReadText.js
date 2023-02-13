@@ -4,7 +4,9 @@ import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 import * as Speech from 'expo-speech';
 import { MaterialIcons } from '@expo/vector-icons'
 import { Shadow } from 'react-native-shadow-2';
+import { Dimensions } from 'react-native';
 
+const { width, height } = Dimensions.get('window');
 
 export default function ReadText() {
   const [isLoading, setLoading] = useState(true);
@@ -34,8 +36,8 @@ export default function ReadText() {
   }
 
   return (
-    <View>
-      <Shadow>
+    <Shadow>
+    <View style={stylestext.container}>
       {isLoading ? <Text>Loading...</Text> : (
         <View style={stylestext.questioncontainer}>
           {data.map((item, index) => (
@@ -52,25 +54,27 @@ export default function ReadText() {
           </Shadow>
         </View>
       )}
-      </Shadow>
     </View>
+    </Shadow>
   );
 };
 
 const stylestext = StyleSheet.create({
+  container: {
+    width: width,
+    height: height * 0.25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: '10%',
+  },
   questioncontainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: '20%',
-    marginRight: '20%',
-    marginTop: '15%',
-    marginBottom: '10%',
   },
   questionText: {
-    fontSize: 36,
-    marginRight: 20,
     fontFamily: 'TTCommons-Regular',
+    fontSize: width * 0.1,
+    paddingRight: '10%',
   },
   speakericonouter: {
     borderRadius: 30,
