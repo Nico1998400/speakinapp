@@ -10,7 +10,7 @@ import {
 import { Shadow } from 'react-native-shadow-2';
 import Lottie from 'lottie-react-native';
 import { Dimensions } from 'react-native';
-import LottieView from 'lottie-react-native';
+import { useState, useEffect } from "react";
 const { width, height } = Dimensions.get('window');
 
 
@@ -19,9 +19,12 @@ export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]);
   const [sound, setSound] = React.useState();
+  const [sendSound, setSendSound] = useState(null);
+  const [recordingSound, setRecordingSound] = useState(null);
   const [recordingFinished, setRecordingFinished] = React.useState(false);
 
   async function startRecording() {
+    await playRecordingSound();
     setRecording(true);
     try {
       console.log("Requesting permissions..");
@@ -30,7 +33,7 @@ export default function AudioRecorder() {
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
       });
-
+  
       console.log("Starting recording..");
       const { recording } = await Audio.Recording.createAsync(
         Audio.RecordingOptionsPresets.HIGH_QUALITY
@@ -69,6 +72,7 @@ export default function AudioRecorder() {
     return `${minutesDisplay}:${secondsDisplay}`;
   }
 
+  // This is a funtion to playback the sound that you recorded
   async function playSound() {
     let file;
     recordings.map((item, index) => {
@@ -99,6 +103,58 @@ export default function AudioRecorder() {
       console.error(error);
     }
   }
+
+  // This is all the sound on the app like the send sound and recording sound animations
+  const loadSendSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/sound/sendsound.wav')
+      );
+      setSendSound(sound);
+    } catch (error) {
+      console.log('Error loading send sound:', error);
+    }
+  };
+  
+  const loadRecordingSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/sound/recordingsound.mp3')
+      );
+      setRecordingSound(sound);
+    } catch (error) {
+      console.log('Error loading recording sound:', error);
+    }
+  };
+  
+  const playSendSound = async () => {
+    if (sendSound) {
+      await sendSound.playAsync();
+    }
+  };
+  
+  const playRecordingSound = async () => {
+    if (recordingSound) {
+      const status = await recordingSound.getStatusAsync();
+      if (status.isLoaded) {
+        await recordingSound.setPositionAsync(0);
+        await recordingSound.playAsync();
+        await new Promise(resolve => {
+          recordingSound.setOnPlaybackStatusUpdate(status => {
+            if (status.didJustFinish) {
+              recordingSound.setOnPlaybackStatusUpdate(null);
+              resolve();
+            }
+          });
+        });
+      }
+    }
+  };
+  
+  useEffect(() => {
+    loadSendSound();
+    loadRecordingSound();
+  }, []);
 
   async function resetRecordings() {
     setRecordings([]);
@@ -131,14 +187,14 @@ export default function AudioRecorder() {
 
   const durationDisplay = getDurationFormatted(duration);
 
- 
+
 
   return (
     <View style={styles.container}>
       {recording ? (
-         
+
         <TouchableOpacity
-        
+
           style={[
             styles.button,
             { backgroundColor: recording ? "#5DA2DF" : "#5DA2DF" },
@@ -146,34 +202,34 @@ export default function AudioRecorder() {
           onPress={stopRecording}
         >
           <FontAwesome name="microphone" size={108} color="white" />
-          
+
         </TouchableOpacity>
-       
+
       ) : recordingFinished ? (
-        
+
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3AD478" }]}
           onPress={playSound}
         >
-         
-         <View style={styles.animationContainer}>
-  <Lottie
-    style={styles.animation}
-       
-    
-    source={require('../assets/lottie/sendanimation.json')}
-    autoPlay
-    loop={false}
-  />
-</View>
-        
+
+          <View style={styles.animationContainer}>
+            <Lottie
+              style={styles.animation}
+
+
+              source={require('../assets/lottie/sendanimation.json')}
+              autoPlay
+              loop={false}
+            />
+          </View>
+
 
           <Entypo name="check" size={108} color="white" />
-        
-        
-        
+
+
+
         </TouchableOpacity>
-        
+
       ) : (
         <Shadow distance={5} offset={[0, 5]} startColor={'#00000010'} endColor={'#0000'}>
           <TouchableOpacity
@@ -194,9 +250,9 @@ export default function AudioRecorder() {
             ? "Skicka in"
             : "Starta inspelning"}
       </Text>
-      
+
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
-    
+
       {recordingFinished ? (
         <>
           <View>
@@ -209,7 +265,7 @@ export default function AudioRecorder() {
       ) : null}
 
     </View>
-    
+
   );
 }
 
@@ -221,7 +277,7 @@ const styles = StyleSheet.create({
     paddingTop: '10%',
   },
   animationContainer: {
-   aspectRatio: 4,
+    aspectRatio: 4,
     width: width * 9,
     transform: [
       { translateY: 85 }
@@ -231,18 +287,18 @@ const styles = StyleSheet.create({
     zIndex: 4,
     transform: [
       { translateX: -width * 0.01 },
-     
+
     ],
   },
-  
+
   button: {
-  
+
     width: width * 0.7,
     height: width * 0.7,
     borderRadius: width * 0.35,
     justifyContent: "center",
     alignItems: "center",
-   
+
   },
   text: {
     fontFamily: 'TTCommons-Bold',
