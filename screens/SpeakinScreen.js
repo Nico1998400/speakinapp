@@ -19,6 +19,7 @@ export default function SpeakingScreen() {
 
 const styles = StyleSheet.create({
   speakincontainer: {
+    backgroundColor: '#ECEEF3'
     
   },
 })

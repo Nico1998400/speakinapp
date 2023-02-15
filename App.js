@@ -10,6 +10,7 @@ const App = () => {
     Font.loadAsync({
       'TTCommons-Regular': require('./assets/fonts/TTCommons-Regular.ttf'),
       'TTCommons-Bold': require('./assets/fonts/TTCommons-Bold.ttf'),
+      'TTCommons-Light': require('./assets/fonts/TTCommons-Light.ttf'),
     }).then(() => {
       setFontsLoaded(true);
     });
@@ -28,7 +29,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    fontFamily: 'TTCommons-Regular',
+    fontFamily: 'TTCommons-Light',
   },
 });
 

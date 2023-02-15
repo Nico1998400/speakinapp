@@ -212,7 +212,7 @@ export default function AudioRecorder() {
         endColor={"#0000"}
       >
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#3AD478" }]}
+          style={[styles.button, { backgroundColor: "#5DA2DF" }]}
           onPress={playSendSound}
         >
           <View style={[styles.animationContainer]}>
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     width: width,
-    height: height * 0.75,
+    height: height * 0.8,
     paddingTop: "10%",
   },
   animationContainer: {
@@ -284,14 +284,14 @@ const styles = StyleSheet.create({
    },
 
   button: {
-    width: width * 0.7,
-    height: width * 0.7,
+    width: width * 0.6,
+    height: width * 0.6,
     borderRadius: width * 0.35,
     justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    fontFamily: "TTCommons-Bold",
+    fontFamily: "TTCommons-Light",
     textAlign: "center",
     fontSize: width * 0.1,
     paddingTop: "10%",
@@ -314,6 +314,6 @@ const styles = StyleSheet.create({
   },
   restartbuttontext: {
     fontSize: 30,
-    fontFamily: "TTCommons-Regular",
+    fontFamily: "TTCommons-Light",
   },
 });

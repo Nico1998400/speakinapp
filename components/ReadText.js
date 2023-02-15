@@ -36,26 +36,26 @@ export default function ReadText() {
   }
 
   return (
-    <Shadow>
-    <View style={stylestext.container}>
-      {isLoading ? <Text>Loading...</Text> : (
-        <View style={stylestext.questioncontainer}>
-          {data.map((item, index) => (
-            <View key={index}>
-              <Text style={stylestext.questionText}>{item.question}</Text>
+    <>
+      <Shadow>
+        <View style={stylestext.container}>
+          {isLoading ? <Text>Loading...</Text> : (
+            <View style={stylestext.questioncontainer}>
+              {data.map((item, index) => (
+                <View key={index}>
+                  <Text style={stylestext.questionText}>{item.question}</Text>
+                </View>
+              ))}
             </View>
-          ))}
-          <Shadow>
-            <TouchableWithoutFeedback style={stylestext.speakericonouter} onPress={speak}>
-              <View>
-              <MaterialIcons name="volume-up" style={stylestext.speakericon} size={38} />
-              </View>
-            </TouchableWithoutFeedback>
-          </Shadow>
+          )}   
+            <View style={stylestext.speakericonouter}>
+              <TouchableWithoutFeedback onPress={speak}>
+                <MaterialIcons name="volume-up" style={stylestext.speakericon} size={38} />
+              </TouchableWithoutFeedback>
+            </View>
         </View>
-      )}
-    </View>
-    </Shadow>
+      </Shadow>
+    </>
   );
 };
 
@@ -66,20 +66,24 @@ const stylestext = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: '10%',
-  },
-  questioncontainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    paddingRight: '5%',
+    paddingLeft: '5%',
+    paddingBottom: '5%',
+    backgroundColor: 'white',
   },
   questionText: {
-    fontFamily: 'TTCommons-Regular',
-    fontSize: width * 0.1,
-    paddingRight: '10%',
+    fontFamily: 'TTCommons-Light',
+    fontSize: width * 0.09,
   },
   speakericonouter: {
     borderRadius: 30,
+    backgroundColor: '#5DA2DF',
+    position: 'absolute',
+    top: height * 0.215,
+    right: '10%',
   },
   speakericon: {
     padding: 10,
+    color: 'white'
   },
 });
