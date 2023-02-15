@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Audio } from "expo-av";
@@ -9,7 +10,7 @@ import {
 import { Shadow } from 'react-native-shadow-2';
 import Lottie from 'lottie-react-native';
 import { Dimensions } from 'react-native';
-
+import LottieView from 'lottie-react-native';
 const { width, height } = Dimensions.get('window');
 
 
@@ -130,6 +131,8 @@ export default function AudioRecorder() {
 
   const durationDisplay = getDurationFormatted(duration);
 
+ 
+
   return (
     <View style={styles.container}>
       {recording ? (
@@ -152,7 +155,23 @@ export default function AudioRecorder() {
           style={[styles.button, { backgroundColor: "#3AD478" }]}
           onPress={playSound}
         >
+         
+         <View style={styles.animationContainer}>
+  <Lottie
+    style={styles.animation}
+       
+    
+    source={require('../assets/lottie/sendanimation.json')}
+    autoPlay
+    loop={false}
+  />
+</View>
+        
+
           <Entypo name="check" size={108} color="white" />
+        
+        
+        
         </TouchableOpacity>
         
       ) : (
@@ -201,11 +220,23 @@ const styles = StyleSheet.create({
     height: height * 0.75,
     paddingTop: '10%',
   },
-  animation: {
-    zIndex: 1,
-    alignItems: 'center'
+  animationContainer: {
+   aspectRatio: 4,
+    width: width * 9,
+    transform: [
+      { translateY: 85 }
+    ]
   },
+  animation: {
+    zIndex: 4,
+    transform: [
+      { translateX: -width * 0.01 },
+     
+    ],
+  },
+  
   button: {
+  
     width: width * 0.7,
     height: width * 0.7,
     borderRadius: width * 0.35,
