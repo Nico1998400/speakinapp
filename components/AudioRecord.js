@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Audio } from "expo-av";
@@ -7,13 +6,11 @@ import {
   Entypo,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { Shadow } from 'react-native-shadow-2';
-import Lottie from 'lottie-react-native';
-import { Dimensions } from 'react-native';
+import { Shadow } from "react-native-shadow-2";
+import Lottie from "lottie-react-native";
+import { Dimensions } from "react-native";
 import { useState, useEffect } from "react";
-const { width, height } = Dimensions.get('window');
-
-
+const { width, height } = Dimensions.get("window");
 
 export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
@@ -33,7 +30,7 @@ export default function AudioRecorder() {
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
       });
-  
+
       console.log("Starting recording..");
       const { recording } = await Audio.Recording.createAsync(
         Audio.RecordingOptionsPresets.HIGH_QUALITY
@@ -108,39 +105,39 @@ export default function AudioRecorder() {
   const loadSendSound = async () => {
     try {
       const { sound } = await Audio.Sound.createAsync(
-        require('../assets/sound/sendsound.wav')
+        require("../assets/sound/sendsound.wav")
       );
       setSendSound(sound);
     } catch (error) {
-      console.log('Error loading send sound:', error);
+      console.log("Error loading send sound:", error);
     }
   };
-  
+
   const loadRecordingSound = async () => {
     try {
       const { sound } = await Audio.Sound.createAsync(
-        require('../assets/sound/recordingsound.mp3')
+        require("../assets/sound/recordingsound.mp3")
       );
       setRecordingSound(sound);
     } catch (error) {
-      console.log('Error loading recording sound:', error);
+      console.log("Error loading recording sound:", error);
     }
   };
-  
+
   const playSendSound = async () => {
     if (sendSound) {
       await sendSound.playAsync();
     }
   };
-  
+
   const playRecordingSound = async () => {
     if (recordingSound) {
       const status = await recordingSound.getStatusAsync();
       if (status.isLoaded) {
         await recordingSound.setPositionAsync(0);
         await recordingSound.playAsync();
-        await new Promise(resolve => {
-          recordingSound.setOnPlaybackStatusUpdate(status => {
+        await new Promise((resolve) => {
+          recordingSound.setOnPlaybackStatusUpdate((status) => {
             if (status.didJustFinish) {
               recordingSound.setOnPlaybackStatusUpdate(null);
               resolve();
@@ -150,7 +147,7 @@ export default function AudioRecorder() {
       }
     }
   };
-  
+
   useEffect(() => {
     loadSendSound();
     loadRecordingSound();
@@ -165,9 +162,9 @@ export default function AudioRecorder() {
   React.useEffect(() => {
     return sound
       ? () => {
-        console.log("Unloading Sound");
-        sound.unloadAsync();
-      }
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
       : undefined;
   }, [sound]);
 
@@ -187,14 +184,17 @@ export default function AudioRecorder() {
 
   const durationDisplay = getDurationFormatted(duration);
 
-
-
   return (
     <View style={styles.container}>
       {recording ? (
-
+        <Shadow
+        distance={5}
+        offset={[0, 5]}
+        startColor={"#00000010"}
+        endColor={"#0000"}
+      >
+        
         <TouchableOpacity
-
           style={[
             styles.button,
             { backgroundColor: recording ? "#5DA2DF" : "#5DA2DF" },
@@ -202,41 +202,38 @@ export default function AudioRecorder() {
           onPress={stopRecording}
         >
           <FontAwesome name="microphone" size={108} color="white" />
-
         </TouchableOpacity>
-
+        </Shadow>
       ) : recordingFinished ? (
-
+        <Shadow
+        distance={5}
+        offset={[0, 5]}
+        startColor={"#00000010"}
+        endColor={"#0000"}
+      >
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3AD478" }]}
-          onPress={playSound}
+          onPress={playSendSound}
         >
-
-          <View style={styles.animationContainer}>
+          <View style={[styles.animationContainer]}>
             <Lottie
               style={styles.animation}
-
-
-              source={require('../assets/lottie/sendanimation.json')}
+              source={require("../assets/lottie/send.json")}
               autoPlay
               loop={false}
             />
           </View>
-
-
-          <Entypo name="check" size={108} color="white" />
-
-
-
         </TouchableOpacity>
-
+        </Shadow>
       ) : (
-        <Shadow distance={5} offset={[0, 5]} startColor={'#00000010'} endColor={'#0000'}>
+        <Shadow
+          distance={5}
+          offset={[0, 5]}
+          startColor={"#00000010"}
+          endColor={"#0000"}
+        >
           <TouchableOpacity
-            style={[
-              styles.button,
-              { backgroundColor: "#5DA2DF" },
-            ]}
+            style={[styles.button, { backgroundColor: "#5DA2DF" }]}
             onPress={startRecording}
           >
             <FontAwesome name="microphone" size={108} color="white" />
@@ -247,8 +244,8 @@ export default function AudioRecorder() {
         {recording
           ? "Avsluta"
           : recordingFinished
-            ? "Skicka in"
-            : "Starta inspelning"}
+          ? "Skicka in"
+          : "Starta inspelning"}
       </Text>
 
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
@@ -256,16 +253,17 @@ export default function AudioRecorder() {
       {recordingFinished ? (
         <>
           <View>
-            <TouchableOpacity style={styles.buttonrestart} onPress={resetRecordings}>
+            <TouchableOpacity
+              style={styles.buttonrestart}
+              onPress={resetRecordings}
+            >
               <MaterialCommunityIcons name="restart" size={52} color="black" />
             </TouchableOpacity>
           </View>
           <Text style={styles.restartbuttontext}>Gör om</Text>
         </>
       ) : null}
-
     </View>
-
   );
 }
 
@@ -274,37 +272,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: width,
     height: height * 0.75,
-    paddingTop: '10%',
+    paddingTop: "10%",
   },
   animationContainer: {
-    aspectRatio: 4,
-    width: width * 9,
-    transform: [
-      { translateY: 85 }
-    ]
-  },
-  animation: {
-    zIndex: 4,
-    transform: [
-      { translateX: -width * 0.01 },
-
-    ],
-  },
+    aspectRatio: 1,
+    width: width * 0.7,
+    borderRadius: width * 0.60,
+   },
+   animation: {
+     zIndex: 4,
+   },
 
   button: {
-
     width: width * 0.7,
     height: width * 0.7,
     borderRadius: width * 0.35,
     justifyContent: "center",
     alignItems: "center",
-
   },
   text: {
-    fontFamily: 'TTCommons-Bold',
+    fontFamily: "TTCommons-Bold",
     textAlign: "center",
     fontSize: width * 0.1,
-    paddingTop: '10%',
+    paddingTop: "10%",
   },
   timer: {
     marginTop: "5%",
@@ -324,6 +314,6 @@ const styles = StyleSheet.create({
   },
   restartbuttontext: {
     fontSize: 30,
-    fontFamily: 'TTCommons-Regular'
+    fontFamily: "TTCommons-Regular",
   },
 });
