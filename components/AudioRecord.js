@@ -16,11 +16,10 @@ export default function AudioRecorder() {
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]);
   const [sound, setSound] = React.useState();
-  const [sendSound, setSendSound] = useState(null);
+  const [sendSound, setSendSound] = React.useState(null);
   const [recordingSound, setRecordingSound] = useState(null);
   const [recordingFinished, setRecordingFinished] = React.useState(false);
-  const [recordingLoading, recordingSetLoading] = useState(null);
-
+  const [recordingLoading, recordingSetLoading] = React.useState(false);
   async function startRecording() {
     await playRecordingSound();
     setRecording(true);
@@ -125,13 +124,15 @@ export default function AudioRecorder() {
     }
   };
 
-  const playSendSound = async () => {
-    if (sendSound) {
+  async function playSendSound ()  {
+    recordingSetLoading(true);
+    if (sendSound) { 
       await sendSound.playAsync();
     }
-    setSendSound(true);
+    
   };
 
+  
   const playRecordingSound = async () => {
     if (recordingSound) {
       const status = await recordingSound.getStatusAsync();
@@ -158,6 +159,7 @@ export default function AudioRecorder() {
   async function resetRecordings() {
     setRecordings([]);
     setDuration(0);
+    recordingSetLoading(false);
     setRecordingFinished(false);
   }
 
@@ -213,6 +215,20 @@ export default function AudioRecorder() {
             </TouchableOpacity>
           </Shadow>
         </View>
+      ) : recordingLoading ? ( 
+        <Shadow
+          distance={5}
+          offset={[0, 5]}
+          startColor={"#00000010"}
+          endColor={"#0000"}
+        >
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: "#5DA2DF" }]}
+           
+          >
+            <FontAwesome name="send" size={85} color="white" />
+          </TouchableOpacity>
+        </Shadow>
       ) : recordingFinished ? (
         <Shadow
           distance={5}
@@ -234,7 +250,7 @@ export default function AudioRecorder() {
             </View>
           </TouchableOpacity>
         </Shadow>
-      ) : (
+      ) :  (
         <Shadow
           distance={5}
           offset={[0, 5]}
@@ -249,16 +265,21 @@ export default function AudioRecorder() {
           </TouchableOpacity>
         </Shadow>
       )}
-      <Text style={styles.text}>
-        {recording
-          ? "Avsluta"
-          : recordingFinished
-            ? "Skicka in"
-            : "Starta inspelning"}
-      </Text>
+        
+     
+
+        <Text style={styles.text}>
+  {!recordingLoading && (recording ?
+   "Avsluta" 
+   : recordingFinished ?
+    "Skicka in" :
+     "Starta inspelning")}
+  {recordingLoading && "Loading..."}
+</Text>
 
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
-      {recordingFinished ? (
+      
+      { recordingFinished ? (
         <>
           <View>
             <TouchableOpacity
