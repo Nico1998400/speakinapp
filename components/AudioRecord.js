@@ -20,6 +20,28 @@ export default function AudioRecorder() {
   const [recordingSound, setRecordingSound] = useState(null);
   const [recordingFinished, setRecordingFinished] = React.useState(false);
   const [recordingLoading, recordingSetLoading] = React.useState(false);
+
+  const recordingOptions = {
+    android: {
+      extension: '.wav',
+      outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_DEFAULT,
+      audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_DEFAULT,
+      sampleRate: 44100,
+      numberOfChannels: 2,
+      bitRate: 128000,
+    },
+    ios: {
+      extension: '.wav',
+      audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MAX,
+      sampleRate: 44100,
+      numberOfChannels: 2,
+      bitRate: 128000,
+      linearPCMBitDepth: 16,
+      linearPCMIsBigEndian: false,
+      linearPCMIsFloat: false,
+    },
+  };
+
   async function startRecording() {
     await playRecordingSound();
     setRecording(true);
@@ -33,7 +55,7 @@ export default function AudioRecorder() {
 
       console.log("Starting recording..");
       const { recording } = await Audio.Recording.createAsync(
-        Audio.RecordingOptionsPresets.HIGH_QUALITY
+        recordingOptions
       );
       setRecording(recording);
       console.log("Recording started");
@@ -124,15 +146,15 @@ export default function AudioRecorder() {
     }
   };
 
-  async function playSendSound ()  {
+  async function playSendSound() {
     recordingSetLoading(true);
-    if (sendSound) { 
+    if (sendSound) {
       await sendSound.playAsync();
     }
-    
+
   };
 
-  
+
   const playRecordingSound = async () => {
     if (recordingSound) {
       const status = await recordingSound.getStatusAsync();
@@ -161,6 +183,10 @@ export default function AudioRecorder() {
     setDuration(0);
     recordingSetLoading(false);
     setRecordingFinished(false);
+  }
+
+  async function cancelUploading() {
+    recordingSetLoading(false);
   }
 
   React.useEffect(() => {
@@ -215,7 +241,7 @@ export default function AudioRecorder() {
             </TouchableOpacity>
           </Shadow>
         </View>
-      ) : recordingLoading ? ( 
+      ) : recordingLoading ? (
         <Shadow
           distance={5}
           offset={[0, 5]}
@@ -224,7 +250,7 @@ export default function AudioRecorder() {
         >
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "#5DA2DF" }]}
-           
+
           >
             <FontAwesome name="send" size={85} color="white" />
           </TouchableOpacity>
@@ -250,7 +276,7 @@ export default function AudioRecorder() {
             </View>
           </TouchableOpacity>
         </Shadow>
-      ) :  (
+      ) : (
         <Shadow
           distance={5}
           offset={[0, 5]}
@@ -265,21 +291,21 @@ export default function AudioRecorder() {
           </TouchableOpacity>
         </Shadow>
       )}
-        
-     
 
-        <Text style={styles.text}>
-  {!recordingLoading && (recording ?
-   "Avsluta" 
-   : recordingFinished ?
-    "Skicka in" :
-     "Starta inspelning")}
-  {recordingLoading && "Loading..."}
-</Text>
+
+
+      <Text style={styles.text}>
+        {!recordingLoading && (recording ?
+          "Avsluta"
+          : recordingFinished ?
+            "Skicka in" :
+            "Starta inspelning")}
+        {recordingLoading && "Loading..."}
+      </Text>
 
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
-      
-      { recordingFinished ? (
+
+      {!recordingLoading && recordingFinished ? (
         <>
           <View>
             <TouchableOpacity
@@ -292,7 +318,17 @@ export default function AudioRecorder() {
           <Text style={styles.restartbuttontext}>Gör om</Text>
         </>
       ) : null}
-
+      <>
+        <View>
+          <TouchableOpacity
+            style={styles.buttoncancel}
+            onPress={cancelUploading}
+          >
+            <MaterialCommunityIcons name="close" size={52} color="black" />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.restartbuttontext}>Avbryt</Text>
+      </>
     </View>
 
   );
@@ -355,6 +391,14 @@ const styles = StyleSheet.create({
   },
   buttonrestart: {
     backgroundColor: "#FFD21D",
+    borderRadius: 50,
+    padding: 15,
+    alignItems: "center",
+    marginTop: "10%",
+    marginBottom: "5%",
+  },
+  buttoncancel: {
+    backgroundColor: "#ff4747",
     borderRadius: 50,
     padding: 15,
     alignItems: "center",
