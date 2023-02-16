@@ -47,12 +47,12 @@ export default function ReadText() {
                 </View>
               ))}
             </View>
-          )}   
+          )}
+          <TouchableWithoutFeedback onPress={speak}>
             <View style={stylestext.speakericonouter}>
-              <TouchableWithoutFeedback onPress={speak}>
-                <MaterialIcons name="volume-up" style={stylestext.speakericon} size={38} />
-              </TouchableWithoutFeedback>
+              <MaterialIcons name="volume-up" style={stylestext.speakericon} size={38} />
             </View>
+          </TouchableWithoutFeedback>
         </View>
       </Shadow>
     </>
