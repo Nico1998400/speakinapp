@@ -186,6 +186,17 @@ export default function AudioRecorder() {
 
   return (
     <View style={styles.container}>
+      {recording ?  
+      
+      <View style={[styles.buttonAnimationContainer]}>
+         <Lottie
+           style={styles.buttonAnimation}
+           source={require("../assets/lottie/recordingeffect.json")}
+           autoPlay
+           loop={true}
+         />
+       </View>  : null }
+
       {recording ? (
         <Shadow
         distance={5}
@@ -201,6 +212,7 @@ export default function AudioRecorder() {
           ]}
           onPress={stopRecording}
         >
+          
           <FontAwesome name="microphone" size={108} color="white" />
         </TouchableOpacity>
         </Shadow>
@@ -249,6 +261,9 @@ export default function AudioRecorder() {
       </Text>
 
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
+      
+      
+     
 
       {recordingFinished ? (
         <>
@@ -263,7 +278,9 @@ export default function AudioRecorder() {
           <Text style={styles.restartbuttontext}>Gör om</Text>
         </>
       ) : null}
+
     </View>
+
   );
 }
 
@@ -272,7 +289,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: width,
     height: height * 0.8,
-    paddingTop: "10%",
+    paddingTop: "20%",
   },
   animationContainer: {
     aspectRatio: 1,
@@ -283,12 +300,30 @@ const styles = StyleSheet.create({
      zIndex: 4,
    },
 
+   buttonAnimationContainer: {
+    width: width * 1,
+    height: height * 0.5,
+    borderRadius: width * 0.2,
+    position: 'absolute',
+    backgroundColor: 'grey',
+    
+    justifyContent: "center",
+    alignItems: "center",
+    
+   },
+
+   buttonAnimation: {
+ 
+   },
+
   button: {
     width: width * 0.6,
     height: width * 0.6,
     borderRadius: width * 0.35,
     justifyContent: "center",
     alignItems: "center",
+    
+    
   },
   text: {
     fontFamily: "TTCommons-Light",
