@@ -23,7 +23,7 @@ export default function AudioRecorder() {
 
   const recordingOptions = {
     android: {
-      extension: '.wav',
+      extension: ".wav",
       outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_DEFAULT,
       audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_DEFAULT,
       sampleRate: 44100,
@@ -31,7 +31,7 @@ export default function AudioRecorder() {
       bitRate: 128000,
     },
     ios: {
-      extension: '.wav',
+      extension: ".wav",
       audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MAX,
       sampleRate: 44100,
       numberOfChannels: 2,
@@ -54,9 +54,7 @@ export default function AudioRecorder() {
       });
 
       console.log("Starting recording..");
-      const { recording } = await Audio.Recording.createAsync(
-        recordingOptions
-      );
+      const { recording } = await Audio.Recording.createAsync(recordingOptions);
       setRecording(recording);
       console.log("Recording started");
     } catch (err) {
@@ -151,9 +149,7 @@ export default function AudioRecorder() {
     if (sendSound) {
       await sendSound.playAsync();
     }
-
-  };
-
+  }
 
   const playRecordingSound = async () => {
     if (recordingSound) {
@@ -192,9 +188,9 @@ export default function AudioRecorder() {
   React.useEffect(() => {
     return sound
       ? () => {
-        console.log("Unloading Sound");
-        sound.unloadAsync();
-      }
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
       : undefined;
   }, [sound]);
 
@@ -250,7 +246,6 @@ export default function AudioRecorder() {
         >
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "#5DA2DF" }]}
-
           >
             <FontAwesome name="send" size={85} color="white" />
           </TouchableOpacity>
@@ -292,14 +287,13 @@ export default function AudioRecorder() {
         </Shadow>
       )}
 
-
-
       <Text style={styles.text}>
-        {!recordingLoading && (recording ?
-          "Avsluta"
-          : recordingFinished ?
-            "Skicka in" :
-            "Starta inspelning")}
+        {!recordingLoading &&
+          (recording
+            ? "Avsluta"
+            : recordingFinished
+            ? "Skicka in"
+            : "Starta inspelning")}
         {recordingLoading && "Loading..."}
       </Text>
 
@@ -318,19 +312,21 @@ export default function AudioRecorder() {
           <Text style={styles.restartbuttontext}>Gör om</Text>
         </>
       ) : null}
-      <>
-        <View>
-          <TouchableOpacity
-            style={styles.buttoncancel}
-            onPress={cancelUploading}
-          >
-            <MaterialCommunityIcons name="close" size={52} color="black" />
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.restartbuttontext}>Avbryt</Text>
-      </>
-    </View>
 
+      {recordingLoading ? (
+        <>
+          <View>
+            <TouchableOpacity
+              style={styles.buttoncancel}
+              onPress={cancelUploading}
+            >
+              <MaterialCommunityIcons name="close" size={52} color="black" />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.restartbuttontext}>Avbryt</Text>
+        </>
+      ) : null}
+    </View>
   );
 }
 
@@ -344,7 +340,7 @@ const styles = StyleSheet.create({
   animationContainer: {
     aspectRatio: 1,
     width: width * 0.7,
-    borderRadius: width * 0.60,
+    borderRadius: width * 0.6,
   },
   animation: {
     zIndex: 4,
@@ -354,12 +350,11 @@ const styles = StyleSheet.create({
     width: width * 1,
     height: height * 0.5,
     borderRadius: width * 0.2,
-    position: 'absolute',
-    backgroundColor: 'grey',
+    position: "absolute",
+    backgroundColor: "grey",
 
     justifyContent: "center",
     alignItems: "center",
-
   },
   buttonAnimation: {
     position: "absolute",
