@@ -162,9 +162,9 @@ export default function AudioRecorder() {
   React.useEffect(() => {
     return sound
       ? () => {
-          console.log("Unloading Sound");
-          sound.unloadAsync();
-        }
+        console.log("Unloading Sound");
+        sound.unloadAsync();
+      }
       : undefined;
   }, [sound]);
 
@@ -186,56 +186,51 @@ export default function AudioRecorder() {
 
   return (
     <View style={styles.container}>
-      {recording ?  
-      
-      <View style={[styles.buttonAnimationContainer]}>
-         <Lottie
-           style={styles.buttonAnimation}
-           source={require("../assets/lottie/recordingeffect.json")}
-           autoPlay
-           loop={true}
-         />
-       </View>  : null }
-
       {recording ? (
-        <Shadow
-        distance={5}
-        offset={[0, 5]}
-        startColor={"#00000010"}
-        endColor={"#0000"}
-      >
-        
-        <TouchableOpacity
-          style={[
-            styles.button,
-            { backgroundColor: recording ? "#5DA2DF" : "#5DA2DF" },
-          ]}
-          onPress={stopRecording}
-        >
-          
-          <FontAwesome name="microphone" size={108} color="white" />
-        </TouchableOpacity>
-        </Shadow>
+        <View style={styles.buttonContainer}>
+          <Lottie
+            style={styles.buttonAnimation}
+            source={require("../assets/lottie/recordingeffect.json")}
+            autoPlay
+            loop={true}
+          />
+          <Shadow
+            distance={5}
+            offset={[0, 5]}
+            startColor={"#00000010"}
+            endColor={"#0000"}
+          >
+            <TouchableOpacity
+              style={[
+                styles.button,
+                { backgroundColor: recording ? "#5DA2DF" : "#5DA2DF" },
+              ]}
+              onPress={stopRecording}
+            >
+              <FontAwesome name="microphone" size={108} color="white" />
+            </TouchableOpacity>
+          </Shadow>
+        </View>
       ) : recordingFinished ? (
         <Shadow
-        distance={5}
-        offset={[0, 5]}
-        startColor={"#00000010"}
-        endColor={"#0000"}
-      >
-        <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#5DA2DF" }]}
-          onPress={playSendSound}
+          distance={5}
+          offset={[0, 5]}
+          startColor={"#00000010"}
+          endColor={"#0000"}
         >
-          <View style={[styles.animationContainer]}>
-            <Lottie
-              style={styles.animation}
-              source={require("../assets/lottie/send.json")}
-              autoPlay
-              loop={false}
-            />
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: "#5DA2DF" }]}
+            onPress={playSendSound}
+          >
+            <View style={[styles.animationContainer]}>
+              <Lottie
+                style={styles.animation}
+                source={require("../assets/lottie/send.json")}
+                autoPlay
+                loop={false}
+              />
+            </View>
+          </TouchableOpacity>
         </Shadow>
       ) : (
         <Shadow
@@ -256,14 +251,14 @@ export default function AudioRecorder() {
         {recording
           ? "Avsluta"
           : recordingFinished
-          ? "Skicka in"
-          : "Starta inspelning"}
+            ? "Skicka in"
+            : "Starta inspelning"}
       </Text>
 
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
-      
-      
-     
+
+
+
 
       {recordingFinished ? (
         <>
@@ -295,35 +290,38 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     width: width * 0.7,
     borderRadius: width * 0.60,
-   },
-   animation: {
-     zIndex: 4,
-   },
+  },
+  animation: {
+    zIndex: 4,
+  },
 
-   buttonAnimationContainer: {
+  buttonAnimationContainer: {
     width: width * 1,
     height: height * 0.5,
     borderRadius: width * 0.2,
     position: 'absolute',
     backgroundColor: 'grey',
-    
+
     justifyContent: "center",
     alignItems: "center",
-    
-   },
 
-   buttonAnimation: {
- 
-   },
-
+  },
+  buttonAnimation: {
+    position: "absolute",
+    width: width * 1,
+    height: width * 1,
+  },
+  buttonContainer: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   button: {
     width: width * 0.6,
     height: width * 0.6,
     borderRadius: width * 0.35,
     justifyContent: "center",
     alignItems: "center",
-    
-    
   },
   text: {
     fontFamily: "TTCommons-Light",
