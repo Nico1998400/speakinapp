@@ -19,6 +19,7 @@ export default function AudioRecorder() {
   const [sendSound, setSendSound] = useState(null);
   const [recordingSound, setRecordingSound] = useState(null);
   const [recordingFinished, setRecordingFinished] = React.useState(false);
+  const [recordingLoading, recordingSetLoading] = useState(null);
 
   async function startRecording() {
     await playRecordingSound();
@@ -128,6 +129,7 @@ export default function AudioRecorder() {
     if (sendSound) {
       await sendSound.playAsync();
     }
+    setSendSound(true);
   };
 
   const playRecordingSound = async () => {
@@ -256,10 +258,6 @@ export default function AudioRecorder() {
       </Text>
 
       {recording ? <Text style={styles.timer}>{durationDisplay}</Text> : null}
-
-
-
-
       {recordingFinished ? (
         <>
           <View>
