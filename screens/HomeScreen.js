@@ -9,10 +9,12 @@ import {
 import { Pressable, Icon } from "react-native";
 import { Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
 export default function HomeScreen() {
+  const nav = useNavigation();
   const [inputValue, setInputValue] = useState("");
 
   const handleNumberPress = (number) => {
@@ -114,7 +116,7 @@ export default function HomeScreen() {
   </View>
       </View>
 
-      <TouchableOpacity style={styles.nextButton}>
+      <TouchableOpacity  onPress={() => nav.navigate("speakinscreen")} style={styles.nextButton}>
         <Text style={styles.nextButtonText}>Nästa</Text>
       </TouchableOpacity>
     </View>

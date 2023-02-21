@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import SpeakinScreen from './screens/SpeakinScreen';
 import HomeScreen from './screens/HomeScreen';
+import EndScreen from './screens/EndScreen';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -27,8 +28,9 @@ const App = () => {
   return (
       <NavigationContainer style={styles.container}>
         <Stack.Navigator initalRouteName='homescreen'>
-          <Stack.Screen name='homescreen' component={HomeScreen}/>
-          <Stack.Screen name='speakinscreen' component={SpeakinScreen}/>
+          <Stack.Screen options={{headerShown: false}} name='homescreen' component={HomeScreen}/>
+          <Stack.Screen options={{headerShown: false}} name='speakinscreen' component={SpeakinScreen}/>
+          <Stack.Screen options={{headerShown: false}} name='endscreen' component={EndScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
   );
