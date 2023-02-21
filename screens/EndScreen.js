@@ -24,7 +24,7 @@ export default function EndScreen() {
             <MaterialCommunityIcons name="check-bold" size={76} color="white" />
           </View>
         </Shadow>
-        <Image style={styles.logoimage} source={require('../assets/image/logo.png')} />
+        <Image style={styles.logoimage} source={require('../assets/image/logo1234.png')} />
       
     </View>
   )
@@ -56,7 +56,7 @@ button: {
 
 logoimage: {
   marginTop: "25%",
-  height: height * 0.043,
+  height: height * 0.05,
   width: width * 0.4,
   
 }
