@@ -1,6 +1,7 @@
 import * as React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Audio } from "expo-av";
+import { useNavigation } from "@react-navigation/native";
 import {
   FontAwesome,
   Entypo,
@@ -13,6 +14,7 @@ import { useState, useEffect } from "react";
 const { width, height } = Dimensions.get("window");
 
 export default function AudioRecorder() {
+  const nav = useNavigation();
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]);
   const [sound, setSound] = React.useState();
@@ -245,6 +247,7 @@ export default function AudioRecorder() {
           endColor={"#0000"}
         >
           <TouchableOpacity
+           onPress={() => nav.navigate("endscreen")}
             style={[styles.button, { backgroundColor: "#5DA2DF" }]}
           >
             <FontAwesome name="send" size={85} color="white" />
