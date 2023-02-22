@@ -35,6 +35,8 @@ export default function NumberInput({ value, onChangeText }) {
     onChangeText(maskedValue);
   };
 
+
+
   return (
     <>
       <Shadow>
@@ -76,22 +78,21 @@ const styles = StyleSheet.create({
   },
   dotsContainer: {
     flexDirection: "row",
-    alignItems: "center",
     position: 'absolute',
-    left: 36,
+    left: width * 0.06,
   },
   input: {
-    height: 50,
-    width: 200,
+    height: height * 0.1,
+    width: width * 0.6,
     fontSize: 32,
-   letterSpacing: 3,
-    left: 36,
+    letterSpacing: 16,
+    left: width * 0.06,
   },
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 15,
+    height: 15,
+    borderRadius: width * 0.5,
     backgroundColor: "#000",
-    marginHorizontal: 5,
+    marginHorizontal: 9,
   },
 });
