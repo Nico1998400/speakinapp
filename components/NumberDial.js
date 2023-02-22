@@ -168,8 +168,10 @@ const styles = StyleSheet.create({
     paddingRight: '15%',
   },
   nextButtonText: {
-    fontSize: width * 0.05,
+    fontSize: width * 0.06,
     color: "white",
     textAlign: 'center',
+    justifyContent: 'center',
+    fontFamily: 'TTCommons-Regular',
   },
 });
