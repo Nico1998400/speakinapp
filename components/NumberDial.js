@@ -5,7 +5,6 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import { Pressable } from "react-native";
 import { Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#DDDDDD",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: '50%',
+    borderRadius: width * 0.35,
     margin: '3%',
     height: width * 0.2,
     width: width * 0.2,
@@ -141,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECEEF3',
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: '50%',
+    borderRadius: width * 0.5,
     margin: '3%',
     height: width * 0.2,
     width: width * 0.2,
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECEEF3',
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: '50%',
+    borderRadius: width * 0.5,
     margin: '3%',
     height: width * 0.2,
     width: width * 0.2,
@@ -162,8 +161,8 @@ const styles = StyleSheet.create({
 
   nextButton: {
     backgroundColor: "#5DA2DF",
-    padding: 20,
-    borderRadius: '35%',
+    padding: height * 0.02,
+    borderRadius: width * 0.35,
     marginTop: '10%',
     paddingLeft: '15%',
     paddingRight: '15%',
