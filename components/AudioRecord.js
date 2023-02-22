@@ -240,6 +240,7 @@ export default function AudioRecorder() {
           </Shadow>
         </View>
       ) : recordingLoading ? (
+    
         <Shadow
           distance={5}
           offset={[0, 5]}
@@ -250,9 +251,15 @@ export default function AudioRecorder() {
            onPress={() => nav.navigate("endscreen")}
             style={[styles.button, { backgroundColor: "#5DA2DF" }]}
           >
-            <FontAwesome name="send" size={85} color="white" />
+            <FontAwesome name="send" size={70} color="white" />
+            <Lottie
+            source={require("../assets/lottie/load.json")}
+            autoPlay
+            loop={true}
+          />
           </TouchableOpacity>
         </Shadow>
+        
       ) : recordingFinished ? (
         <Shadow
           distance={5}
