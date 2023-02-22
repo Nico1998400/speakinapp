@@ -413,10 +413,7 @@ const styles = StyleSheet.create({
   },
   loadinglottie: {
     position: "absolute",
-    
-    width: width * 0.8,
-    height: width * 0.8,
-    
-    
+    width: width * 0.65,
+    height: height * 0.65,
   }
 });

@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     borderRadius: width * 0.5,
-    backgroundColor: "#000",
+    backgroundColor: "grey",
     marginHorizontal: 9,
   },
 });
