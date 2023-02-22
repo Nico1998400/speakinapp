@@ -240,7 +240,7 @@ export default function AudioRecorder() {
           </Shadow>
         </View>
       ) : recordingLoading ? (
-    
+        
         <Shadow
           distance={5}
           offset={[0, 5]}
@@ -252,7 +252,7 @@ export default function AudioRecorder() {
             style={[styles.button, { backgroundColor: "#5DA2DF" }]}
           >
             <FontAwesome name="send" size={70} color="white" />
-            <Lottie
+            <Lottie style={styles.loadinglottie}
             source={require("../assets/lottie/load.json")}
             autoPlay
             loop={true}
@@ -271,14 +271,7 @@ export default function AudioRecorder() {
             style={[styles.button, { backgroundColor: "#5DA2DF" }]}
             onPress={playSendSound}
           >
-            <View style={[styles.animationContainer]}>
-              <Lottie
-                style={styles.animation}
-                source={require("../assets/lottie/send.json")}
-                autoPlay
-                loop={false}
-              />
-            </View>
+            <MaterialCommunityIcons name="send" size={74} color="white" />
           </TouchableOpacity>
         </Shadow>
       ) : (
@@ -382,6 +375,7 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.35,
     justifyContent: "center",
     alignItems: "center",
+    
   },
   text: {
     fontFamily: "TTCommons-Light",
@@ -417,4 +411,12 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: "TTCommons-Light",
   },
+  loadinglottie: {
+    position: "absolute",
+    
+    width: width * 0.8,
+    height: width * 0.8,
+    
+    
+  }
 });
