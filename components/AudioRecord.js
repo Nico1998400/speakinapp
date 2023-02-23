@@ -212,6 +212,7 @@ export default function AudioRecorder() {
   const durationDisplay = getDurationFormatted(duration);
 
   const uploadRecording = async () => {
+    recordingSetLoading(true);
     try {
       const file = recordings[0].file;
       const formData = new FormData();
@@ -229,11 +230,13 @@ export default function AudioRecorder() {
       });
       const data = await response.json();
       console.log("Success:", data);
+      nav.navigate("endscreen");
+
     } catch (error) {
       console.error("Error:", error);
+      recordingSetLoading(false);
     }
   };
-
   return (
     <View style={styles.container}>
       {recording ? (
@@ -269,8 +272,7 @@ export default function AudioRecorder() {
           startColor={"#00000010"}
           endColor={"#0000"}
         >
-          <TouchableOpacity
-           onPress={() => nav.navigate("endscreen")}
+          <View
             style={[styles.button, { backgroundColor: "#5DA2DF" }]}
           >
             <FontAwesome name="send" size={70} color="white" />
@@ -279,7 +281,7 @@ export default function AudioRecorder() {
             autoPlay
             loop={true}
           />
-          </TouchableOpacity>
+          </View>
         </Shadow>
         
       ) : recordingFinished ? (
