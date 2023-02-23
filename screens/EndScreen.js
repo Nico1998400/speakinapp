@@ -63,8 +63,8 @@ button: {
  
 },
 lottie: {
-  width: width * 0.6,
-  heigh: height*  0.6,
+  width: width * 0.35,
+  heigh: height*  0.35,
 
 },
 
