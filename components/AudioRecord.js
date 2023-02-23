@@ -79,7 +79,6 @@ export default function AudioRecorder() {
       duration: getDurationFormatted(status.durationMillis),
       file: await recording.getURI(),
     });
-    console.log(updatedRecordings);
     setRecordings(updatedRecordings);
   }
 
@@ -212,6 +211,29 @@ export default function AudioRecorder() {
 
   const durationDisplay = getDurationFormatted(duration);
 
+  const uploadRecording = async () => {
+    try {
+      const file = recordings[0].file;
+      const formData = new FormData();
+      formData.append("audioFile", {
+        uri: file,
+        type: "audio/wav",
+        name: "recording.wav",
+      });
+      const response = await fetch("http://10.0.2.2:8080/audio/post", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data", // Use multipart/form-data for file upload
+        },
+      });
+      const data = await response.json();
+      console.log("Success:", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {recording ? (
@@ -269,7 +291,7 @@ export default function AudioRecorder() {
         >
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "#5DA2DF" }]}
-            onPress={playSendSound}
+            onPress={uploadRecording}
           >
             <MaterialCommunityIcons name="send" size={74} color="white" />
           </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet} from "react-native";
 import NumberInput from "../components/NumberInput";
 import NumberDial from "../components/NumberDial";
 
@@ -24,10 +24,10 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.speakincontainer}>
+    <ScrollView style={styles.speakincontainer}>
       <NumberInput value={inputValue} onChangeText={handleValueChange} />
       <NumberDial onNumberPress={handleNumberPress} onErasePress={handleErasePress} />
-    </View>
+    </ScrollView>
   );
 }
 
