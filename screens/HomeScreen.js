@@ -26,7 +26,7 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.speakincontainer}>
       <NumberInput value={inputValue} onChangeText={handleValueChange} />
-      <NumberDial onNumberPress={handleNumberPress} onErasePress={handleErasePress} />
+      <NumberDial onNumberPress={handleNumberPress} onErasePress={handleErasePress}  inputValue={inputValue} />
     </ScrollView>
   );
 }

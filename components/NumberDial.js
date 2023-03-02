@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
-export default function NumberDial({ onNumberPress, onErasePress  }) {
+export default function NumberDial({ onNumberPress, onErasePress, inputValue }) {
   const nav = useNavigation();
 
   const handleNumberPress = (number) => {
@@ -106,7 +106,11 @@ export default function NumberDial({ onNumberPress, onErasePress  }) {
               />
           </TouchableOpacity>
           </View>
-        <TouchableOpacity onPress={() => nav.navigate("speakinscreen")} style={styles.nextButton}>
+          <TouchableOpacity
+          style={styles.nextButton}
+          onPress={() => nav.navigate('speakinscreen', { inputValue })}
+        >
+         
           <Text style={styles.nextButtonText}>Nästa</Text>
         </TouchableOpacity>
       </View>
