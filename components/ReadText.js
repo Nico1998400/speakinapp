@@ -26,18 +26,26 @@ export default function ReadText() {
   useEffect(() => {
     console.log(inputValue, "This is the inputvalue")
     fetch(`http://10.0.2.2:8080/question/${inputValue}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        return response.json();
+      })
       .then((json) => {
         console.log(json, "This is my fetching"); // Log the JSON data to see what you're getting back
         setData(json);
         console.log(data,"this is my data")
+      })
+      .catch((error) => {
+       
+       
+          nav.navigate('homescreen');
         
       })
-      .catch((error,) => console.error(error))
-      .finally(() => setLoading(false) );
-        
+      .finally(() => setLoading(false));
   }, []);
-
+  
   useEffect(() => {
     console.log('data has changed:', data);
   }, [data]);
